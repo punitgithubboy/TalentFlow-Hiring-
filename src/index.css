@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Monochrome Slate Design System - Professional SaaS Aesthetic */
+
+@layer base {
+  :root {
+    /* Base colors - Light mode */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    /* Card colors */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    /* Popover colors */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    /* Primary - Slate 600 */
+    --primary: 215 25% 27%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Slate 100 */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 215 25% 27%;
+
+    /* Muted - Slate 50 */
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent - Slate 100 */
+    --accent: 210 40% 96%;
+    --accent-foreground: 215 25% 27%;
+
+    /* Destructive - Slate 500 */
+    --destructive: 215 20% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs - Slate 200 */
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 215 25% 27%;
+
+    /* Status colors - all slate variations */
+    --success: 215 25% 27%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 215 20% 65%;
+    --warning-foreground: 0 0% 100%;
+
+    --info: 215 25% 27%;
+    --info-foreground: 0 0% 100%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar colors */
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 215 25% 27%;
+    --sidebar-primary: 215 25% 27%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 215 25% 27%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 215 25% 27%;
+  }
+
+  .dark {
+    /* Base colors - Dark mode */
+    --background: 215 28% 17%;
+    --foreground: 210 40% 98%;
+
+    /* Card colors */
+    --card: 215 28% 17%;
+    --card-foreground: 210 40% 98%;
+
+    /* Popover colors */
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary - Slate 300 */
+    --primary: 210 40% 98%;
+    --primary-foreground: 215 28% 17%;
+
+    /* Secondary - Slate 800 */
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted - Slate 800 */
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 20% 65%;
+
+    /* Accent - Slate 800 */
+    --accent: 215 25% 27%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Destructive - Slate 400 */
+    --destructive: 215 20% 65%;
+    --destructive-foreground: 215 28% 17%;
+
+    /* Borders and inputs - Slate 700 */
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 210 40% 98%;
+
+    /* Status colors - all slate variations */
+    --success: 210 40% 98%;
+    --success-foreground: 215 28% 17%;
+
+    --warning: 215 20% 65%;
+    --warning-foreground: 215 28% 17%;
+
+    --info: 210 40% 98%;
+    --info-foreground: 215 28% 17%;
+
+    /* Sidebar colors */
+    --sidebar-background: 215 28% 17%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 215 28% 17%;
+    --sidebar-accent: 215 25% 27%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 25% 27%;
+    --sidebar-ring: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Smooth transitions for all interactive elements */
+  button, a, input, select, textarea, [role="button"] {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  /* Focus ring improvements */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
