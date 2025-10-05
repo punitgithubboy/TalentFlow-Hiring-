@@ -12,8 +12,8 @@ A modern hiring platform built with React, TypeScript, and Vite for managing job
 ### Installation
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd talentflow-hiring
+git clone https://github.com/punitgithubboy/TalentFlow-Hiring-.git
+cd TalentFlow-Hiring-
 
 # Install dependencies
 npm install --legacy-peer-deps
