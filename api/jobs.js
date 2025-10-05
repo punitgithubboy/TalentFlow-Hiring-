@@ -46,7 +46,7 @@ const jobs = jobTitles.map((title, index) => ({
   id: `job-${index + 1}`,
   title,
   slug: generateSlug(title),
-  status: Math.random() > 0.3 ? 'active' : 'archived',
+  status: 'active', // Make all jobs active for assessments to work
   tags: randomElements(tags, Math.floor(Math.random() * 3) + 1),
   order: index,
   description: `We are looking for an experienced ${title} to join our team.`,

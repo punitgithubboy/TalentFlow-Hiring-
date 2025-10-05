@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/lib/db';
 import { Card } from '@/components/ui/card';
@@ -7,9 +7,65 @@ import { Badge } from '@/components/ui/badge';
 import { FileCheck, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+interface Job {
+  id: string;
+  title: string;
+  slug: string;
+  status: string;
+  tags: string[];
+  order: number;
+  description?: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+interface Assessment {
+  id: string;
+  jobId: string;
+  title: string;
+  sections: any[];
+  createdAt: number;
+  updatedAt: number;
+}
+
 export default function Assessments() {
-  const jobs = useLiveQuery(() => db.jobs.where('status').equals('active').toArray(), []);
-  const assessments = useLiveQuery(() => db.assessments.toArray(), []);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [assessments, setAssessments] = useState<Assessment[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Use Dexie in development, API in production
+  const devJobs = useLiveQuery(() => db.jobs.where('status').equals('active').toArray(), []);
+  const devAssessments = useLiveQuery(() => db.assessments.toArray(), []);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      // Use Dexie data in development
+      if (devJobs) setJobs(devJobs);
+      if (devAssessments) setAssessments(devAssessments);
+      setLoading(false);
+    } else {
+      // Use API in production
+      const fetchData = async () => {
+        try {
+          // Fetch active jobs
+          const jobsResponse = await fetch('/api/jobs?status=active');
+          const jobsData = await jobsResponse.json();
+          setJobs(jobsData.data || []);
+
+          // Fetch assessments
+          const assessmentsResponse = await fetch('/api/assessments');
+          const assessmentsData = await assessmentsResponse.json();
+          setAssessments(assessmentsData.data || []);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData();
+    }
+  }, [devJobs, devAssessments]);
 
   const jobsWithAssessments = jobs?.map(job => ({
     ...job,
@@ -27,7 +83,15 @@ export default function Assessments() {
         </div>
       </div>
 
-      {!jobsWithAssessments || jobsWithAssessments.length === 0 ? (
+      {loading ? (
+        <Card className="p-12 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <h3 className="text-lg font-semibold text-foreground">Loading...</h3>
+          <p className="text-muted-foreground mt-2">
+            Fetching jobs and assessments
+          </p>
+        </Card>
+      ) : !jobsWithAssessments || jobsWithAssessments.length === 0 ? (
         <Card className="p-12 text-center">
           <FileCheck className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-foreground">No active jobs</h3>
