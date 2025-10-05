@@ -60,3 +60,4 @@ jspm_packages/
 
 # MSW generated files
 public/mockServiceWorker.js
+.vercel

@@ -5,6 +5,12 @@ import { seedDatabase } from "./lib/seedData";
 
 // Initialize MSW and seed database
 async function enableMocking() {
+  // Only enable MSW in development
+  if (process.env.NODE_ENV !== 'development') {
+    console.log('Production mode: Using Vercel API routes');
+    return;
+  }
+
   if (typeof window === 'undefined') {
     return;
   }
