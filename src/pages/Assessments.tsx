@@ -85,8 +85,11 @@ export default function Assessments() {
 
       {loading ? (
         <Card className="p-12 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <h3 className="text-lg font-semibold text-foreground">Loading...</h3>
+          <div className="relative">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary/20 border-t-primary mx-auto mb-4"></div>
+            <div className="absolute inset-0 rounded-full h-12 w-12 border-4 border-transparent border-r-primary/40 animate-spin mx-auto mb-4" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+          </div>
+          <h3 className="text-lg font-semibold text-foreground animate-pulse">Loading...</h3>
           <p className="text-muted-foreground mt-2">
             Fetching jobs and assessments
           </p>

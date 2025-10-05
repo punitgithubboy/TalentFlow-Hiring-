@@ -40,7 +40,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                           : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                       )}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                       {item.name}
                     </Link>
                   );

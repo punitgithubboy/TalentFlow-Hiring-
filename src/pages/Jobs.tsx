@@ -13,6 +13,7 @@ import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-
 import { CSS } from '@dnd-kit/utilities';
 import { toast } from 'sonner';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const SortableJobCard = ({ job, onEdit, onArchive }: { job: Job; onEdit: (job: Job) => void; onArchive: (job: Job) => void }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: job.id });
@@ -208,11 +209,33 @@ export default function Jobs() {
         <>
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={jobs.map((j) => j.id)} strategy={verticalListSortingStrategy}>
-              <div className="space-y-3">
-                {jobs.map((job) => (
-                  <SortableJobCard key={job.id} job={job} onEdit={handleEdit} onArchive={handleArchive} />
+              <motion.div 
+                className="space-y-3"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1
+                    }
+                  }
+                }}
+              >
+                {jobs.map((job, index) => (
+                  <motion.div
+                    key={job.id}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  >
+                    <SortableJobCard job={job} onEdit={handleEdit} onArchive={handleArchive} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </SortableContext>
           </DndContext>
 
