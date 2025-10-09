@@ -10,7 +10,7 @@
 
 ## 🌟 Live Demo
 
-**🔗 [View Live Application](https://talentflow-hiring-qi5178vjp-punitgithubboys-projects.vercel.app)**
+**🔗 [View Live Application](https://talentflow-hiring.vercel.app)**
 
 ## ✨ Features
 
@@ -60,7 +60,7 @@ npm install --legacy-peer-deps
 npm run dev
 
 # Open http://localhost:8081
-```
+   ```
 
 > **Note:** Using `--legacy-peer-deps` due to React version conflicts with `react-virtual` library.
 
@@ -332,7 +332,7 @@ npm install --legacy-peer-deps
 ### Production Deployment
 The application is automatically deployed to Vercel on every push to the main branch.
 
-**Production URL:** https://talentflow-hiring-qi5178vjp-punitgithubboys-projects.vercel.app
+**Production URL:** https://talentflow-hiring.vercel.app
 
 ### Environment Variables
 ```bash
