@@ -1,122 +1,383 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Briefcase, Users, FileCheck, ArrowRight } from 'lucide-react';
+import { Briefcase, Users, FileCheck, ArrowRight, Sparkles, Zap, Shield, Heart, Award } from 'lucide-react';
+import { PremiumBackground } from '@/components/PremiumBackground';
+import { PremiumNavigation } from '@/components/PremiumNavigation';
+import { TestimonialSection } from '@/components/TestimonialSection';
+import { HeroBackground } from '@/components/HeroBackground';
+import { AnimatedStats } from '@/components/AnimatedStats';
+import { PremiumCTA, ScrollIndicator } from '@/components/PremiumCTA';
+import { HumanTouch, TrustedBy } from '@/components/HumanTouch';
+import { motion } from 'framer-motion';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <nav className="border-b border-border/50 bg-card/50 backdrop-blur-sm">
+    <div className="min-h-screen relative">
+      <HeroBackground />
+      <PremiumNavigation />
+
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-screen flex items-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+          <div className="text-center">
+            {/* Hero Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-white/10 to-white/10 border border-white/20 text-white text-sm font-medium mb-8 backdrop-blur-sm"
+            >
+              <motion.div
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Sparkles className="h-4 w-4" />
+              </motion.div>
+              Premium Hiring Platform
+            </motion.div>
+
+            {/* Main Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground mb-8 tracking-tight leading-tight"
+            >
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="block mb-2"
+              >
+                Your next star hire
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="block bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent drop-shadow-lg"
+              >
+                starts here
+              </motion.span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+              className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed"
+            >
+              The only hiring platform you'll ever need. Manage jobs, track candidates, 
+              and create assessments with the elegance of a premium experience.
+            </motion.p>
+
+            {/* Human Touch */}
+            <HumanTouch />
+
+            {/* CTA Buttons */}
+            <PremiumCTA />
+
+            {/* Trusted By */}
+            <TrustedBy />
+
+            {/* Animated Stats */}
+            <div className="max-w-6xl mx-auto">
+              <AnimatedStats />
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <ScrollIndicator />
+      </section>
+
+      {/* Features Section */}
+      <section className="relative py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shadow-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 
+              className="text-4xl md:text-5xl font-display font-bold text-white mb-6"
+              style={{
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+                color: '#ffffff'
+              }}
+            >
+              Everything you need to hire better
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              From job posting to candidate assessment, we've got you covered with 
+              powerful tools designed for modern hiring teams.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="premium-card hover-lift p-8 group">
+                <motion.div
+                  className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-primary/10 mb-6 group-hover:bg-gradient-primary/20 transition-all duration-300"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <Briefcase className="h-8 w-8 text-primary" />
+                </motion.div>
+                <h3 className="text-2xl font-display font-semibold text-foreground mb-4 tracking-tight">
+                  Job Management
+                </h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Create, edit, and organize job postings with drag-and-drop reordering, 
+                  smart filtering, and automated workflows.
+                </p>
+                <Link to="/jobs">
+                  <Button 
+                    size="sm" 
+                    className="font-medium rounded-md transition-colors"
+                    style={{ 
+                      backgroundColor: 'rgb(99, 102, 241)', 
+                      color: 'white',
+                      border: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                    }}
+                  >
+                    Explore Jobs
+                  </Button>
+                </Link>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card className="premium-card hover-lift p-8 group">
+                <motion.div
+                  className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-primary/10 mb-6 group-hover:bg-gradient-primary/20 transition-all duration-300"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <Users className="h-8 w-8 text-primary" />
+                </motion.div>
+                <h3 className="text-2xl font-display font-semibold text-foreground mb-4 tracking-tight">
+                  Candidate Tracking
+                </h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Track 1000+ candidates with virtualized lists, kanban boards, 
+                  detailed timelines, and advanced search capabilities.
+                </p>
+                <Link to="/candidates">
+                  <Button 
+                    size="sm" 
+                    className="font-medium rounded-md transition-colors"
+                    style={{ 
+                      backgroundColor: 'rgb(99, 102, 241)', 
+                      color: 'white',
+                      border: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                    }}
+                  >
+                    View Candidates
+                  </Button>
+                </Link>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <Card className="premium-card hover-lift p-8 group">
+                <motion.div
+                  className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-primary/10 mb-6 group-hover:bg-gradient-primary/20 transition-all duration-300"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <FileCheck className="h-8 w-8 text-primary" />
+                </motion.div>
+                <h3 className="text-2xl font-display font-semibold text-foreground mb-4 tracking-tight">
+                  Smart Assessments
+                </h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Build custom assessments with conditional logic, validation rules, 
+                  live preview, and automated scoring.
+                </p>
+                <Link to="/assessments">
+                  <Button 
+                    size="sm" 
+                    className="font-medium rounded-md transition-colors"
+                    style={{ 
+                      backgroundColor: 'rgb(99, 102, 241)', 
+                      color: 'white',
+                      border: 'none'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                    }}
+                  >
+                    Create Assessment
+                  </Button>
+                </Link>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <TestimonialSection />
+      </motion.div>
+
+      {/* CTA Section */}
+      <section className="relative py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Card className="premium-card p-12 text-center relative overflow-hidden">
+              {/* Background gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+              
+              <div className="relative z-10 max-w-3xl mx-auto">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="text-4xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight"
+                  style={{
+                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+                    color: '#ffffff'
+                  }}
+                >
+                  Ready to transform your hiring?
+                </motion.h2>
+                
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  viewport={{ once: true }}
+                  className="text-xl text-muted-foreground mb-8 leading-relaxed"
+                >
+                  Join hundreds of companies using TalentFlow to find and hire the best talent efficiently.
+                </motion.p>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link to="/jobs">
+                      <Button 
+                        size="lg" 
+                        className="gap-2 px-8 py-4 text-lg font-medium rounded-md transition-colors"
+                        style={{ 
+                          backgroundColor: 'rgb(99, 102, 241)', 
+                          color: 'white',
+                          border: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                        }}
+                      >
+                        Start Now <Zap className="h-5 w-5" />
+                      </Button>
+                    </Link>
+                  </motion.div>
+                  
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button 
+                      size="lg" 
+                      className="px-8 py-4 text-lg font-medium rounded-md transition-colors"
+                      style={{ 
+                        backgroundColor: 'rgb(99, 102, 241)', 
+                        color: 'white',
+                        border: 'none'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                      }}
+                    >
+                      <Shield className="h-5 w-5 mr-2" />
+                      Learn More
+                    </Button>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative border-t border-white/10 py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <Briefcase className="h-4 w-4 text-primary-foreground" />
               </div>
-              <span className="text-xl font-semibold text-foreground tracking-tight">TalentFlow</span>
+              <span className="text-xl font-display font-bold text-foreground">TalentFlow</span>
             </div>
-
-            <Link to="/jobs">
-              <Button>Get Started</Button>
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-semibold text-foreground mb-6 tracking-tight">
-            Streamline Your Hiring Process
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Manage jobs, track candidates, and create assessments all in one powerful platform
-          </p>
-          <Link to="/jobs">
-            <Button size="lg" className="gap-2">
-              Start Hiring <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-3 mb-16">
-          <Card className="p-6 hover:shadow-md transition-all duration-200">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary mb-4 shadow-sm">
-              <Briefcase className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <h3 className="text-xl font-semibold text-foreground mb-3 tracking-tight">Job Management</h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Create, edit, and organize job postings with drag-and-drop reordering and smart filtering
+            <p className="text-muted-foreground mb-4">
+              &copy; 2025 TalentFlow. All data stored locally in your browser.
             </p>
-            <Link to="/jobs">
-              <Button variant="outline" size="sm">Explore Jobs</Button>
-            </Link>
-          </Card>
-
-          <Card className="p-6 hover:shadow-md transition-all duration-200">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary mb-4 shadow-sm">
-              <Users className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <h3 className="text-xl font-semibold text-foreground mb-3 tracking-tight">Candidate Tracking</h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Track 1000+ candidates with virtualized lists, kanban boards, and detailed timelines
-            </p>
-            <Link to="/candidates">
-              <Button variant="outline" size="sm">View Candidates</Button>
-            </Link>
-          </Card>
-
-          <Card className="p-6 hover:shadow-md transition-all duration-200">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary mb-4 shadow-sm">
-              <FileCheck className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <h3 className="text-xl font-semibold text-foreground mb-3 tracking-tight">Smart Assessments</h3>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Build custom assessments with conditional logic, validation rules, and live preview
-            </p>
-            <Link to="/assessments">
-              <Button variant="outline" size="sm">Create Assessment</Button>
-            </Link>
-          </Card>
-        </div>
-
-        <Card className="p-8 bg-muted/30 border-border/50">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-1">
-              <h2 className="text-3xl font-semibold text-foreground mb-4 tracking-tight">
-                Ready to transform your hiring?
-              </h2>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                Join hundreds of companies using TalentFlow to find and hire the best talent efficiently.
-              </p>
-              <Link to="/jobs">
-                <Button size="lg">Start Now</Button>
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="p-4 text-center bg-background/50">
-                <div className="text-3xl font-semibold text-primary">1000+</div>
-                <div className="text-sm text-muted-foreground">Candidates</div>
-              </Card>
-              <Card className="p-4 text-center bg-background/50">
-                <div className="text-3xl font-semibold text-primary">25+</div>
-                <div className="text-sm text-muted-foreground">Active Jobs</div>
-              </Card>
-              <Card className="p-4 text-center bg-background/50">
-                <div className="text-3xl font-semibold text-primary">6</div>
-                <div className="text-sm text-muted-foreground">Stages</div>
-              </Card>
-              <Card className="p-4 text-center bg-background/50">
-                <div className="text-3xl font-semibold text-primary">100%</div>
-                <div className="text-sm text-muted-foreground">Local Data</div>
-              </Card>
-            </div>
-          </div>
-        </Card>
-      </main>
-
-      <footer className="border-t border-border/50 mt-16 py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-muted-foreground">
-          <p>&copy; 2025 TalentFlow. All data stored locally in your browser.</p>
+          </motion.div>
         </div>
       </footer>
     </div>

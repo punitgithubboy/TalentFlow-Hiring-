@@ -111,7 +111,20 @@ export default function JobDetail() {
           </div>
 
           <Link to={`/candidates?jobId=${job.id}`} className="mt-4 block">
-            <Button className="w-full" variant="outline">
+            <Button 
+              className="w-full font-medium rounded-md transition-colors"
+              style={{ 
+                backgroundColor: 'rgb(99, 102, 241)', 
+                color: 'white',
+                border: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+              }}
+            >
               View All Candidates
             </Button>
           </Link>

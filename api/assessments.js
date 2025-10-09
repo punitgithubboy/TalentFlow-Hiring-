@@ -143,8 +143,32 @@ export default function handler(req, res) {
     
     assessments.push(newAssessment);
     res.status(201).json(newAssessment);
+  } else if (method === 'PUT') {
+    const { jobId } = req.query;
+    const assessmentIndex = assessments.findIndex(a => a.jobId === jobId);
+    
+    if (assessmentIndex === -1) {
+      // Create new assessment if it doesn't exist
+      const newAssessment = {
+        id: `assessment-${jobId}`,
+        jobId: jobId,
+        ...req.body,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      };
+      assessments.push(newAssessment);
+      res.status(201).json(newAssessment);
+    } else {
+      // Update existing assessment
+      assessments[assessmentIndex] = {
+        ...assessments[assessmentIndex],
+        ...req.body,
+        updatedAt: Date.now(),
+      };
+      res.status(200).json(assessments[assessmentIndex]);
+    }
   } else {
-    res.setHeader('Allow', ['GET', 'POST']);
+    res.setHeader('Allow', ['GET', 'POST', 'PUT']);
     res.status(405).end(`Method ${method} Not Allowed`);
   }
 }

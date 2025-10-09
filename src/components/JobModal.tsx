@@ -124,14 +124,16 @@ export function JobModal({ isOpen, onClose, job }: JobModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] glass-effect animate-scale-in">
         <DialogHeader>
-          <DialogTitle>{job ? 'Edit Job' : 'Create New Job'}</DialogTitle>
+          <DialogTitle className="text-2xl font-semibold tracking-tight">
+            {job ? 'Edit Job' : 'Create New Job'}
+          </DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="title">
+        <div className="space-y-6 py-6">
+          <div className="space-y-3">
+            <Label htmlFor="title" className="text-sm font-medium">
               Job Title <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -139,12 +141,13 @@ export function JobModal({ isOpen, onClose, job }: JobModalProps) {
               value={formData.title}
               onChange={(e) => handleTitleChange(e.target.value)}
               placeholder="e.g., Senior Frontend Developer"
+              className="input-premium"
             />
             {errors.title && <p className="text-sm text-destructive">{errors.title}</p>}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="slug">
+          <div className="space-y-3">
+            <Label htmlFor="slug" className="text-sm font-medium">
               Slug <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -152,14 +155,15 @@ export function JobModal({ isOpen, onClose, job }: JobModalProps) {
               value={formData.slug}
               onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
               placeholder="e.g., senior-frontend-developer"
+              className="input-premium font-mono"
             />
             {errors.slug && <p className="text-sm text-destructive">{errors.slug}</p>}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="status">Status</Label>
+          <div className="space-y-3">
+            <Label htmlFor="status" className="text-sm font-medium">Status</Label>
             <Select value={formData.status} onValueChange={(value: 'active' | 'archived') => setFormData({ ...formData, status: value })}>
-              <SelectTrigger id="status">
+              <SelectTrigger id="status" className="input-premium">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -169,19 +173,20 @@ export function JobModal({ isOpen, onClose, job }: JobModalProps) {
             </Select>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+          <div className="space-y-3">
+            <Label htmlFor="description" className="text-sm font-medium">Description</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Job description..."
               rows={4}
+              className="input-premium resize-none"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="tags">Tags</Label>
+          <div className="space-y-3">
+            <Label htmlFor="tags" className="text-sm font-medium">Tags</Label>
             <div className="flex gap-2">
               <Input
                 id="tags"
@@ -194,21 +199,47 @@ export function JobModal({ isOpen, onClose, job }: JobModalProps) {
                   }
                 }}
                 placeholder="Add a tag..."
+                className="input-premium"
               />
-              <Button type="button" onClick={handleAddTag} variant="outline">
+              <Button 
+                type="button" 
+                onClick={handleAddTag} 
+                className="px-6 font-medium rounded-md transition-colors"
+                style={{ 
+                  backgroundColor: 'rgb(99, 102, 241)', 
+                  color: 'white',
+                  border: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                }}
+              >
                 Add
               </Button>
             </div>
             {formData.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
+              <div className="flex flex-wrap gap-2 mt-3">
                 {formData.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="pl-2 pr-1">
+                  <Badge key={tag} variant="secondary" className="pl-3 pr-1 py-1 bg-gray-100 text-gray-800 border-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-600">
                     {tag}
                     <Button
                       type="button"
-                      variant="ghost"
                       size="icon"
-                      className="h-4 w-4 ml-1"
+                      className="h-4 w-4 ml-1 font-medium rounded-md transition-colors"
+                      style={{ 
+                        backgroundColor: 'rgb(99, 102, 241)', 
+                        color: 'white',
+                        border: 'none'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgb(79, 70, 229)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'rgb(99, 102, 241)';
+                      }}
                       onClick={() => handleRemoveTag(tag)}
                     >
                       <X className="h-3 w-3" />
@@ -220,11 +251,20 @@ export function JobModal({ isOpen, onClose, job }: JobModalProps) {
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={isSubmitting}>
+        <DialogFooter className="gap-3">
+          <Button 
+            onClick={onClose} 
+            disabled={isSubmitting} 
+            variant="outline"
+            className="px-6 font-medium rounded-md transition-colors border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
+          >
             Cancel
           </Button>
-          <Button onClick={handleSubmit} disabled={isSubmitting}>
+          <Button 
+            onClick={handleSubmit} 
+            disabled={isSubmitting} 
+            className="px-6 font-medium rounded-md transition-colors bg-primary text-white hover:bg-primary/90"
+          >
             {isSubmitting ? 'Saving...' : job ? 'Update Job' : 'Create Job'}
           </Button>
         </DialogFooter>

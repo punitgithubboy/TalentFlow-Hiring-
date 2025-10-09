@@ -22,6 +22,12 @@ export interface Candidate {
   updatedAt: number;
   phone?: string;
   resume?: string;
+  avatar?: string;
+  experience?: string;
+  skills?: string[];
+  notes?: string;
+  source?: string;
+  rating?: number;
 }
 
 export interface TimelineEvent {

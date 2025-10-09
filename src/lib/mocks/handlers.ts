@@ -5,8 +5,13 @@ const BASE_URL = '/api';
 
 // Helper to simulate network delay
 async function simulateNetwork() {
-  const delayTime = Math.random() * 500 + 100; // 100-600ms
+  const delayTime = Math.random() * 200 + 50; // 50-250ms (much faster)
   await delay(delayTime);
+}
+
+// Helper to simulate random errors on write operations
+function shouldError() {
+  return Math.random() < 0.02; // 2% error rate (much lower)
 }
 
 export const handlers = [
@@ -66,6 +71,10 @@ export const handlers = [
   http.post(`${BASE_URL}/jobs`, async ({ request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to create job' }, { status: 500 });
+      }
 
       const body = await request.json() as Partial<Job>;
       const newJob: Job = {
@@ -90,6 +99,10 @@ export const handlers = [
   http.patch(`${BASE_URL}/jobs/:id`, async ({ params, request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to update job' }, { status: 500 });
+      }
 
       const { id } = params;
       const updates = await request.json() as Partial<Job>;
@@ -109,6 +122,10 @@ export const handlers = [
   http.patch(`${BASE_URL}/jobs/:id/reorder`, async ({ params, request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to reorder jobs' }, { status: 500 });
+      }
 
       const { id } = params;
       const { fromOrder, toOrder } = await request.json() as { fromOrder: number; toOrder: number };
@@ -200,6 +217,10 @@ export const handlers = [
   http.post(`${BASE_URL}/candidates`, async ({ request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to create candidate' }, { status: 500 });
+      }
 
       const body = await request.json() as Partial<Candidate>;
       const newCandidate: Candidate = {
@@ -224,6 +245,10 @@ export const handlers = [
   http.patch(`${BASE_URL}/candidates/:id`, async ({ params, request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to update candidate' }, { status: 500 });
+      }
 
       const { id } = params;
       const updates = await request.json() as Partial<Candidate>;
@@ -253,6 +278,47 @@ export const handlers = [
       return HttpResponse.json(candidate);
     } catch (error) {
       return HttpResponse.json({ error: 'Failed to update candidate' }, { status: 500 });
+    }
+  }),
+
+  // Move candidate between stages (for kanban board)
+  http.patch(`${BASE_URL}/candidates/:id/move`, async ({ params, request }) => {
+    try {
+      await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to move candidate' }, { status: 500 });
+      }
+
+      const { id } = params;
+      const { fromStage, toStage } = await request.json() as { fromStage: string; toStage: string };
+
+      const candidate = await db.candidates.get(id as string);
+      if (!candidate) {
+        return HttpResponse.json({ error: 'Candidate not found' }, { status: 404 });
+      }
+
+      // Add timeline event for stage change
+      await db.timeline.add({
+        id: `timeline-${id}-${Date.now()}`,
+        candidateId: id as string,
+        type: 'stage_change',
+        fromStage: fromStage as any,
+        toStage: toStage as any,
+        createdAt: Date.now(),
+        createdBy: 'HR Team',
+      });
+
+      // Update candidate stage
+      await db.candidates.update(id as string, {
+        stage: toStage as any,
+        updatedAt: Date.now(),
+      });
+
+      const updatedCandidate = await db.candidates.get(id as string);
+      return HttpResponse.json(updatedCandidate);
+    } catch (error) {
+      return HttpResponse.json({ error: 'Failed to move candidate' }, { status: 500 });
     }
   }),
 
@@ -295,6 +361,10 @@ export const handlers = [
   http.put(`${BASE_URL}/assessments/:jobId`, async ({ params, request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to save assessment' }, { status: 500 });
+      }
 
       const { jobId } = params;
       const body = await request.json() as any;
@@ -318,6 +388,10 @@ export const handlers = [
   http.post(`${BASE_URL}/assessments/:jobId/submit`, async ({ params, request }) => {
     try {
       await simulateNetwork();
+      
+      if (shouldError()) {
+        return HttpResponse.json({ error: 'Failed to submit assessment' }, { status: 500 });
+      }
 
       const { jobId } = params;
       const body = await request.json() as any;
